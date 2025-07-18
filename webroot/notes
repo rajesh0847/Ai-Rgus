@@ -1,0 +1,68 @@
+{
+title: '',
+field: 'dummy01',
+visible: isColumnVisible.call(this, 'dummy01'),
+width: 200,
+headerSort: false,
+iExcludeFromList: { src: 0, cv: 1 },
+hozAlign: "center",
+// <editor-fold defaultstate="collapsed" desc=" formatter ">
+    //#region formatter
+    formatter: function (cell, formatterParams, onRendered) {
+    let cell_value = cell.getValue();
+    let row_data = cell.getData();
+
+    const $el_w = $("<div></div>");
+
+
+    const $dd_w = $(`<div class="dropdown" data-iBS-ddown_moveto="body">
+        <button type="button" class="clGearMenu dropdown-toggle h7 btn btn-sm btn-info fw-bold float-start _ms-1 px-1"
+            _data-bs-toggle="dropdown" _aria-expanded="false">
+            <i class="fas fa-cog"></i></button>
+    </div>
+    `).click(function(){
+
+    const $dd_btn = $("button", this);
+
+    if($($dd_btn).hasAttr("data-bs-toggle")){ // there is info and the button is set already as dropdown - all good.
+    return;
+    }
+
+    $dd_btn.attr("data-bs-toggle" ,"dropdown");
+
+
+    const $ul = $(`<ul class="dropdown-menu h6 shadow-lg border border-dark border-w1" style="background-color: #4ac8e1; z-index: 1010;">
+        <li><a class="cl_information dropdown-item border" href="#"><i class="fad fa-book-open pe-2"></i>Information</a></li>
+        <li><a class="cl_db_info dropdown-item border text-danger" href="#"><i class="fad fa-database pe-2"></i>D.B. Information</a></li>
+    </ul>`);
+    $dd_w.append($ul);
+    $dd_btn.click(); // to show the dropdown
+    $dd_btn.click(); // to show the dropdown
+
+
+    $dd_w.on('show.bs.dropdown', function () {
+    // // in order that we will see the dd window in the Tabulator, we must move it to the body
+    console.log("innn");
+    $('ul.dropdown-menu', $dd_w).addClass('moved_ddown_to_body').appendTo('body');
+    });
+
+    });
+
+
+
+
+
+
+    const $btn_invoice = $(`<button class="btn btn-outline-primary h7" type="button">
+        <i class="fad fa-file-invoice-dollar fa-lg pe-2"></i>Create an invoice</button>`)
+    .click(function(e){
+    // <editor-fold defaultstate="collapsed" desc=" on: click ">
+
+        // </editor-fold>
+    });
+    $el_w.append($dd_w, $btn_invoice);
+    return $el_w[0];
+    },
+    //#endregion
+    // </editor-fold>
+},
